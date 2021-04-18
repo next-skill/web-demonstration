@@ -4,7 +4,7 @@ require 'rack'
 require 'pg'
 require 'securerandom'
 
-HEADER = {
+DEFAULT_HEADER = {
   'Content-Type' => 'text/html'
 }.freeze
 
@@ -31,8 +31,11 @@ class SampleWebApplication
         </html>
       EOT
 
-      Rack::Response.new(response_body, 200, HEADER)
+      Rack::Response.new(response_body, 200, DEFAULT_HEADER)
+
     elsif request.path == '/todos' && request.get?
+
+      # DB から TODO 一覧を取得
       conn = PG::Connection.new(
         host: 'localhost',
         port: 5432,
@@ -47,6 +50,7 @@ class SampleWebApplication
       result = conn.exec(sql)
       conn&.close
 
+      # 取得したデータから HTML を生成
       table_body_html = result.map do |record|
         <<~EOT
           <tr>
@@ -84,8 +88,11 @@ class SampleWebApplication
         </html>
       EOT
 
-      Rack::Response.new(response_body, 200, HEADER)
+      Rack::Response.new(response_body, 200, DEFAULT_HEADER)
+
     elsif request.path == '/todos' && request.post?
+
+      # DB に TODO を保存
       conn = PG::Connection.new(
         host: 'localhost',
         port: 5432,
@@ -103,10 +110,12 @@ class SampleWebApplication
       conn.exec_prepared(stmt_name, sql_params)
       conn&.close
 
+      # 一覧画面にリダイレクトするようなレスポンスを返却
       header = {
         'Location' => '/todos'
       }
       Rack::Response.new(nil, 303, header)
+
     else
       response_body = <<~EOT
         <!DOCTYPE html>
@@ -120,7 +129,7 @@ class SampleWebApplication
         </html>
       EOT
 
-      Rack::Response.new(response_body, 404, HEADER)
+      Rack::Response.new(response_body, 404, DEFAULT_HEADER)
     end
   end
 end
