@@ -45,6 +45,7 @@ cd web-server
 
 ```shell
 cd rails-initial-project
+rails db:migrate
 rails s
 ```
 
