@@ -1,7 +1,10 @@
 require 'socket'
+require_relative 'handler'
 
 port = 8000
 server = TCPServer.open(port)
+
+handler = Handler.new
 
 while true
   socket = server.accept
@@ -20,22 +23,14 @@ while true
   puts '=== request_header ==='
   puts request_header
 
-  # レスポンスの生成
-  response_header = <<~EOT
-    HTTP/1.1 200 OK
-    Content-Type: text/html
-  EOT
-  response_body = <<~EOT
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>hello</title>
-      </head>
-      <body>
-        <h1>Hello Ruby!!!</h1>
-      </body>
-    </html>
-  EOT
+  # パスの解析
+  path = request_line.gsub(/^(.+) (.+) (.+)$/, '\2').chomp
+
+  puts '=== path ==='
+  puts path
+
+  # パスごとのレスポンスの生成
+  response_header, response_body = handler.handle(path)
 
   puts '=== response_header ==='
   puts response_header
