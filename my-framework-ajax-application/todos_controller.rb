@@ -1,3 +1,5 @@
+require 'json'
+
 class TodosController
   def index(request)
     # DB から TODO 一覧を取得
@@ -15,51 +17,28 @@ class TodosController
     result = conn.exec(sql)
     conn&.close
 
-    # 取得したデータから HTML を生成
-    table_body_html = result.map do |record|
-      <<~EOT
-        <tr>
-          <td>#{record['id']}</td>
-          <td>#{record['title']}</td>
-        </tr>
-      EOT
-    end.join
+    # 取得したデータから JSON を生成
+    todos = result.map do |record|
+      {
+        'id' => record['id'],
+        'title' => record['title']
+      }
+    end
 
-    response_body = <<~EOT
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>todos</title>
-        </head>
-        <body>
-          <h1>todos</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>title</th>
-              </tr>
-            </thead>
-            <tbody>
-              #{table_body_html}
-            </tbody>
-          </table>
-          <form method="post">
-            <label>title: </label>
-            <input type="text" name="title" />
-            <button type="submit">register</button>
-          </form>
-        </body>
-      </html>
-    EOT
+    response_body = {
+      'todos' => todos
+    }.to_json
 
     header = {
-      'Content-Type' => 'text/html'
+      'Content-Type' => 'application/json'
     }
     Rack::Response.new(response_body, 200, header)
   end
 
   def create(request)
+    request_body_json = JSON.parse(request.body.read)
+    puts "[request_body_json] #{request_body_json}"
+
     # DB に TODO を保存
     conn = PG::Connection.new(
       host: 'localhost',
@@ -74,7 +53,7 @@ class TodosController
 
     stmt_name = SecureRandom.uuid
     conn.prepare(stmt_name, sql)
-    sql_params = [request.params['title']]
+    sql_params = [request_body_json['title']]
     conn.exec_prepared(stmt_name, sql_params)
     conn&.close
 

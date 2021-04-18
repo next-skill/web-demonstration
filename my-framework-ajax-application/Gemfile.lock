@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    pg (1.2.3)
+    rack (2.2.3)
+    webrick (1.7.0)
+
+PLATFORMS
+  x86_64-darwin-18
+
+DEPENDENCIES
+  pg (~> 1.2)
+  rack (~> 2.2)
+  webrick (~> 1.7)
+
+RUBY VERSION
+   ruby 3.0.0p0
+
+BUNDLED WITH
+   2.2.3

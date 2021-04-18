@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>todos</title>
+    <script src="./todos.js" defer></script>
+  </head>
+  <body>
+    <h1>todos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>title</th>
+        </tr>
+      </thead>
+      <tbody id="todos-table-body">
+      </tbody>
+    </table>
+    <form>
+      <label>title: </label>
+      <input id="todo-post-title" type="text" name="title" />
+      <button type="button" onclick="registerTodo()">register</button>
+    </form>
+  </body>
+</html>
