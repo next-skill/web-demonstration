@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'rack'
-require 'pg'
-require 'securerandom'
 
 DEFAULT_HEADER = {
   'Content-Type' => 'text/html'
@@ -11,6 +9,12 @@ DEFAULT_HEADER = {
 class SampleWebApplication
   def call(env)
     request = Rack::Request.new(env)
+
+    puts <<~EOT
+    === request ===
+    request.path = #{request.path}
+    request.request_method = #{request.request_method}
+    EOT
 
     response_body = <<~EOT
       <!DOCTYPE html>
