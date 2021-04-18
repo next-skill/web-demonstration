@@ -64,8 +64,10 @@ cd rack-appliction
 bundle exec rackup config.ru
 ```
 
+```shell
 curl -v localhost:9292/todos
 curl -v -L -d 'title=mytodo' localhost:9292/todos
+```
 
 ### my-framework-application
 
