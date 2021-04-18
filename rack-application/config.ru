@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require 'rack'
+require 'pg'
+require 'securerandom'
 
 HEADER = {
   'Content-Type' => 'text/html'
 }.freeze
 
-class JankenWebApplication
+class SampleWebApplication
   def call(env)
     request = Rack::Request.new(env)
     response = handle(request)
@@ -15,7 +17,7 @@ class JankenWebApplication
 
   private
 
-  def handle(request) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def handle(request)
     if request.path == '/' && request.get?
       response_body = <<~EOT
         <!DOCTYPE html>
@@ -31,6 +33,29 @@ class JankenWebApplication
 
       Rack::Response.new(response_body, 200, HEADER)
     elsif request.path == '/todos' && request.get?
+      conn = PG::Connection.new(
+        host: 'localhost',
+        port: 5432,
+        dbname: 'mydb',
+        user: 'myuser',
+        password: 'mypassword'
+      )
+
+      sql = 'SELECT id, title FROM todos'
+      puts "[SQL LOG] #{sql}"
+
+      result = conn.exec(sql)
+      conn&.close
+
+      table_body_html = result.map do |record|
+        <<~EOT
+          <tr>
+            <td>#{record['id']}</td>
+            <td>#{record['title']}</td>
+          </tr>
+        EOT
+      end.join
+
       response_body = <<~EOT
         <!DOCTYPE html>
         <html>
@@ -39,9 +64,20 @@ class JankenWebApplication
           </head>
           <body>
             <h1>todos</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>title</th>
+                </tr>
+              </thead>
+              <tbody>
+                #{table_body_html}
+              </tbody>
+            </table>
             <form method="post">
-              <label>name: </label>
-              <input type="text" name="name" />
+              <label>title: </label>
+              <input type="text" name="title" />
               <button type="submit">register</button>
             </form>
           </body>
@@ -50,7 +86,23 @@ class JankenWebApplication
 
       Rack::Response.new(response_body, 200, HEADER)
     elsif request.path == '/todos' && request.post?
-      puts request.params
+      conn = PG::Connection.new(
+        host: 'localhost',
+        port: 5432,
+        dbname: 'mydb',
+        user: 'myuser',
+        password: 'mypassword'
+      )
+
+      sql = 'INSERT INTO todos ("title") VALUES ($1)'
+      puts "[SQL LOG] #{sql}"
+
+      stmt_name = SecureRandom.uuid
+      conn.prepare(stmt_name, sql)
+      sql_params = [request.params['title']]
+      conn.exec_prepared(stmt_name, sql_params)
+      conn&.close
+
       header = {
         'Location' => '/todos'
       }
@@ -73,4 +125,4 @@ class JankenWebApplication
   end
 end
 
-run JankenWebApplication.new
+run SampleWebApplication.new
