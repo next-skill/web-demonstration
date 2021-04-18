@@ -14,7 +14,7 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 
 ## PostgreSQL 起動
 
-```console
+```shell
 docker-compose up -d
 ```
 
@@ -33,7 +33,7 @@ INSERT INTO "todos" ("title") VALUES
 
 ### web-server
 
-```console
+```shell
 cd web-server
 ./server.rb
 ./server_v2.rb
@@ -43,7 +43,7 @@ cd web-server
 
 ### rails-initial-project
 
-```console
+```shell
 cd rails-initial-project
 rails s
 ```
@@ -52,14 +52,14 @@ rails s
 
 ### socket-web-application
 
-```console
+```shell
 cd socket-web-appliction
 ./server.rb
 ```
 
 ### rack-appliction
 
-```console
+```shell
 cd rack-appliction
 bundle exec rackup config.ru
 ```
@@ -69,14 +69,14 @@ curl -v -L -d 'title=mytodo' localhost:9292/todos
 
 ### my-framework-application
 
-```console
+```shell
 cd my-framework-application
 bundle exec rackup config.ru
 ```
 
 ### my-framework-ajax-application
 
-```console
+```shell
 cd my-framework-ajax-application
 bundle exec rackup config.ru
 ```
