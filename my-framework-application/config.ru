@@ -4,7 +4,7 @@ require 'rack'
 require 'pg'
 require 'securerandom'
 
-require_relative './controllers/todos_controller'
+require_relative './todos_controller'
 
 class SampleWebApplication
   def call(env)
