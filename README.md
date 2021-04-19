@@ -30,12 +30,7 @@ PostgreSQL のコンテナを起動
 
 ```shell
 docker-compose up -d
-```
-
-`docker ps` でコンテナ ID を確認し、SQL を流す
-
-```shell
-docker exec -it <container_id> sh
+docker-compose exec postgres sh
 psql -U myuser -d mydb
 ```
 
