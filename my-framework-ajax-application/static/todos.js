@@ -1,10 +1,11 @@
 async function loadTodos() {
   response = await fetch('/api/todos')
   responseBody = await response.json()
-  
+
+  console.log('[responseBody]')
+  console.log(responseBody)
+
   // DOM を操作して動的に HTML を変更
-  todosTableBody = document.getElementById('todos-table-body')
-  
   trElements = responseBody.todos.map(todo => {
     return `
       <tr>
@@ -13,7 +14,8 @@ async function loadTodos() {
       </tr>
     `
   }).reduce((l, r) => l + r, '')
-  
+
+  todosTableBody = document.getElementById('todos-table-body')
   todosTableBody.innerHTML = trElements
 }
 

@@ -49,9 +49,8 @@ class SampleWebApplication
   end
 
   def static_file(request)
-    puts Dir.pwd
-
     path = 'static' + request.path
+    puts "[static file path] #{path}"
     response_body = File.readlines(path).join
 
     Rack::Response.new(response_body, 200, {})

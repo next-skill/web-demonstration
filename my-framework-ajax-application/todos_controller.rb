@@ -29,6 +29,8 @@ class TodosController
       'todos' => todos
     }.to_json
 
+    puts "[response_body] #{response_body}"
+
     header = {
       'Content-Type' => 'application/json'
     }
@@ -57,10 +59,7 @@ class TodosController
     conn.exec_prepared(stmt_name, sql_params)
     conn&.close
 
-    # 一覧画面にリダイレクトするようなレスポンスを返却
-    header = {
-      'Location' => '/todos'
-    }
-    Rack::Response.new(nil, 303, header)
+    # 登録成功のレスポンスを返却
+    Rack::Response.new(nil, 201, {})
   end
 end

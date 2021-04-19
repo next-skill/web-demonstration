@@ -3,6 +3,7 @@ class TodosController < ApplicationController
 
   # GET /todos or /todos.json
   def index
+    puts caller
     @todos = Todo.all
   end
 
