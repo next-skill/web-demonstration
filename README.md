@@ -75,16 +75,16 @@ rails s
 ### socket-web-application
 
 ```shell
-cd socket-web-appliction
+cd socket-web-application
 ./server.rb
 ```
 
 ブラウザで http://localhost:8000/todos にアクセス
 
-### rack-appliction
+### rack-application
 
 ```shell
-cd rack-appliction
+cd rack-application
 bundle exec rackup config.ru
 ```
 
