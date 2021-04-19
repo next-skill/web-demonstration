@@ -2,7 +2,7 @@
 
 Web の仕組みや Web アプリの仕組みについてのデモンストレーション用コードです。
 
-※ デモンストレーション用のコードです。セキュリティ上の問題が多数存在するため、実用しないでください。
+※ あくまでデモンストレーション用のコードです。セキュリティ上の問題が多数存在するため、実用しないでください。
 
 ## 依存関係
 
@@ -24,13 +24,22 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 
 ## デモンストレーション手順
 
-## PostgreSQL セットアップ
+### PostgreSQL セットアップ
+
+PostgreSQL のコンテナを起動
 
 ```shell
 docker-compose up -d
 ```
 
+`docker ps` でコンテナ ID を確認し、SQL を流す
+
+```shell
+docker exec -it <container_id> sh
 psql -U myuser -d mydb
+```
+
+実行する SQL は以下の通り
 
 ```sql
 CREATE TABLE "todos" (
@@ -43,10 +52,10 @@ INSERT INTO "todos" ("title") VALUES
 ('bar');
 ```
 
-### web-server
+### socket-web-server
 
 ```shell
-cd web-server
+cd socket-web-server
 ./server.rb
 ./server_v2.rb
 ```
@@ -61,7 +70,7 @@ rails db:migrate
 rails s
 ```
 
-ブラウザで http://localhost:3000 にアクセス
+ブラウザで http://localhost:3000/todos にアクセス
 
 ### socket-web-application
 
@@ -70,12 +79,18 @@ cd socket-web-appliction
 ./server.rb
 ```
 
+ブラウザで http://localhost:8000/todos にアクセス
+
 ### rack-appliction
 
 ```shell
 cd rack-appliction
 bundle exec rackup config.ru
 ```
+
+ブラウザで http://localhost:9292/todos にアクセス
+
+curl の場合は以下のコマンドでアクセス可能
 
 ```shell
 curl -v localhost:9292/todos
@@ -89,9 +104,13 @@ cd rack-application-with-controller
 bundle exec rackup config.ru
 ```
 
+ブラウザで http://localhost:9292/todos にアクセス
+
 ### rack-application-with-ajax
 
 ```shell
 cd rack-application-with-ajax
 bundle exec rackup config.ru
 ```
+
+ブラウザで http://localhost:9292/todos.html にアクセス
