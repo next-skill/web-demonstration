@@ -10,9 +10,21 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 * Docker
 * Docker Compose
 
+## ディレクトリ構成
+
+```
+.
+├── socket-web-server ... socket を使った Web サーバ
+├── socket-web-application ... socket を使った Web アプリ
+├── rack-application ... Rack を使った Web アプリ
+├── rack-application-with-controller ... Controller を作成したサンプルアプリ
+├── rack-application-with-ajax ... Ajax のサンプルアプリ
+└── rails-initial-project ... Rails の自動生成プロジェクト
+```
+
 ## デモンストレーション手順
 
-## PostgreSQL 起動
+## PostgreSQL セットアップ
 
 ```shell
 docker-compose up -d
@@ -70,16 +82,16 @@ curl -v localhost:9292/todos
 curl -v -L -d 'title=mytodo' localhost:9292/todos
 ```
 
-### my-framework-application
+### rack-application-with-controller
 
 ```shell
-cd my-framework-application
+cd rack-application-with-controller
 bundle exec rackup config.ru
 ```
 
-### my-framework-ajax-application
+### rack-application-with-ajax
 
 ```shell
-cd my-framework-ajax-application
+cd rack-application-with-ajax
 bundle exec rackup config.ru
 ```
