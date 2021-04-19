@@ -8,10 +8,11 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 
 * Ruby
 * Node.js
+* Yarn
 * Docker
 * Docker Compose
 
-※ Ruby と Node.js のバージョンの指定には asdf を使用しています
+※ Ruby、Node.js、Yarn のバージョンの指定には asdf を使用しています
 
 ## ディレクトリ構成
 
