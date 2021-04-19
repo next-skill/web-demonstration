@@ -44,7 +44,7 @@ class TodosController
               #{table_body_html}
             </tbody>
           </table>
-          <form method="post">
+          <form action="/todos" method="post">
             <label>title: </label>
             <input type="text" name="title" />
             <button type="submit">register</button>
