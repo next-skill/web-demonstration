@@ -6,9 +6,12 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 
 ## 依存関係
 
-* Ruby (バージョンの指定には asdf を使用しています)
+* Ruby
+* Node.js
 * Docker
 * Docker Compose
+
+※ Ruby と Node.js のバージョンの指定には asdf を使用しています
 
 ## ディレクトリ構成
 
