@@ -28,27 +28,10 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 
 ## デモンストレーション手順
 
-### PostgreSQL セットアップ
-
-PostgreSQL のコンテナを起動
+### PostgreSQL のコンテナ起動
 
 ```shell
 docker-compose up -d
-docker-compose exec postgres sh
-psql -U myuser -d mydb
-```
-
-実行する SQL は以下の通り
-
-```sql
-CREATE TABLE "todos" (
-  "id" SERIAL PRIMARY KEY NOT NULL,
-  "title" varchar NOT NULL
-);
-
-INSERT INTO "todos" ("title") VALUES
-('foo'),
-('bar');
 ```
 
 ### socket-web-server

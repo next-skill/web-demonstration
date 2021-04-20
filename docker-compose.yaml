@@ -8,3 +8,5 @@ services:
       - POSTGRES_DB=mydb
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
+    volumes:
+      - ${PWD}/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
