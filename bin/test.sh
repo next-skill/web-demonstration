@@ -38,14 +38,6 @@ main() {
   curl -f -v localhost:8000
   kill_jobs
 
-  cd "${PROJECT_HOME}/rails-generated-project"
-  bundle install
-  yarn install
-  bundle exec rails s &
-  sleep 10
-  curl -f -v localhost:3000
-  kill_jobs
-
   cd "${PROJECT_HOME}/rack-application"
   bundle install
   bundle exec rackup simple-config.ru &
@@ -75,6 +67,15 @@ main() {
   curl -f -v localhost:9292/todos.js
   curl -f -v localhost:9292/api/todos
   curl -f -v -d '{"title": "mytodo"}' localhost:9292/api/todos
+  kill_jobs
+
+  cd "${PROJECT_HOME}/rails-generated-project"
+  bundle install
+  yarn install
+  bundle exec rails db:migrate
+  bundle exec rails s &
+  sleep 10
+  curl -f -v localhost:3000
   kill_jobs
 }
 
