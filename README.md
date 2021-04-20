@@ -23,7 +23,7 @@ Web の仕組みや Web アプリの仕組みについてのデモンストレ�
 ├── rack-application ... Rack を使った Web アプリ
 ├── rack-application-with-controller ... Controller を作成したサンプルアプリ
 ├── rack-application-with-ajax ... Ajax のサンプルアプリ
-└── rails-initial-project ... Rails の自動生成プロジェクト
+└── rails-generated-project ... Rails の自動生成プロジェクト
 ```
 
 ## デモンストレーション手順
@@ -60,16 +60,6 @@ cd socket-web-server
 ```
 
 ブラウザで http://localhost:8000 にアクセス
-
-### rails-initial-project
-
-```shell
-cd rails-initial-project
-rails db:migrate
-rails s
-```
-
-ブラウザで http://localhost:3000/todos にアクセス
 
 ### socket-web-application
 
@@ -113,3 +103,13 @@ bundle exec rackup config.ru
 ```
 
 ブラウザで http://localhost:9292/todos.html にアクセス
+
+### rails-generated-project
+
+```shell
+cd rails-generated-project
+rails db:migrate
+rails s
+```
+
+ブラウザで http://localhost:3000/todos にアクセス

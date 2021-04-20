@@ -42,7 +42,7 @@ main() {
   kill_jobs
   cd -
 
-  cd rails-initial-project
+  cd rails-generated-project
   bundle install
   yarn install
   bundle exec rails s &
