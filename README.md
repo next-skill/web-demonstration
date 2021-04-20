@@ -1,5 +1,9 @@
 # web-demonstration
 
+![badge.svg](https://github.com/next-skill/web-demonstration/workflows/main/badge.svg)
+
+![badge.svg](https://github.com/next-skill/web-demonstration/workflows/schedule/badge.svg)
+
 Web の仕組みや Web アプリの仕組みについてのデモンストレーション用コードです。
 
 ※ あくまでデモンストレーション用のコードです。セキュリティ上の問題が多数存在するため、実用しないでください。
