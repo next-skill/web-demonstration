@@ -22,19 +22,19 @@ main() {
 
   cd "${PROJECT_HOME}/socket-web-server"
   ruby server.rb &
-  sleep 1
+  sleep 5
   curl -f -v localhost:8000
   kill_jobs
 
   cd "${PROJECT_HOME}/socket-web-server"
   ruby server_v2.rb &
-  sleep 1
+  sleep 5
   curl -f -v localhost:8000
   kill_jobs
 
   cd "${PROJECT_HOME}/socket-web-application"
   ruby server.rb &
-  sleep 1
+  sleep 5
   curl -f -v localhost:8000
   kill_jobs
 
