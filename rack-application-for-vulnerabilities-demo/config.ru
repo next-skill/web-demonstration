@@ -4,7 +4,8 @@ require 'rack'
 require 'pg'
 require 'securerandom'
 
-require_relative './todos_controller'
+require_relative './controllers/todos_controller'
+require_relative './controllers/todos_xss_controller'
 
 class SampleWebApplication
   def call(env)
@@ -22,6 +23,14 @@ class SampleWebApplication
     elsif request.path == '/todos' && request.post?
       TodosController.new.create(request)
 
+    # XSS
+    elsif request.path == '/todos/xss' && request.get?
+      TodosXssController.new.index(request)
+
+    elsif request.path == '/todos/xss' && request.post?
+      TodosXssController.new.create(request)
+
+    # その他の場合は 404 ページ
     else
       response_body = <<~EOT
         <!DOCTYPE html>
