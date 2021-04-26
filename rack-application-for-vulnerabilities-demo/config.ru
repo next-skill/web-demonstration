@@ -6,6 +6,7 @@ require 'securerandom'
 
 require_relative './controllers/todos_controller'
 require_relative './controllers/todos_xss_controller'
+require_relative './controllers/todos_sql_injection_controller'
 
 class SampleWebApplication
   def call(env)
@@ -29,6 +30,13 @@ class SampleWebApplication
 
     elsif request.path == '/todos/xss' && request.post?
       TodosXssController.new.create(request)
+
+    # SQL インジェクション
+    elsif request.path == '/todos/sql-injection' && request.get?
+      TodosSqlInjectionController.new.index(request)
+
+    elsif request.path == '/todos/sql-injection' && request.post?
+      TodosSqlInjectionController.new.create(request)
 
     # その他の場合は 404 ページ
     else
