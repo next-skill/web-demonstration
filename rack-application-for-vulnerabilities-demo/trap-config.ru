@@ -30,8 +30,8 @@ class SampleWebApplication
         <!DOCTYPE html>
         <html>
           <head>
-            <meta charset="utf-8">
             <title>demo</title>
+            <meta charset="utf-8">
           </head>
           <body>
             <h1>同一オリジンポリシー</h1>
@@ -72,9 +72,16 @@ class SampleWebApplication
         <html>
           <head>
             <title>demo</title>
+            <meta charset="utf-8">
           </head>
           <body>
-            <h1>404 Not Found</h1>
+            <h1>CSRF</h1>
+            <p>http://localhost:9292/todos/csrf への POST</p>
+            <form action="http://localhost:9292/todos/csrf" method="post">
+            <label>title: </label>
+            <input type="text" name="title" />
+            <button type="submit">register</button>
+            </form>
           </body>
         </html>
       EOT

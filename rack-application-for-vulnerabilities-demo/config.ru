@@ -8,6 +8,7 @@ require_relative './controllers/todos_controller'
 require_relative './controllers/todos_xss_controller'
 require_relative './controllers/todos_sql_injection_controller'
 require_relative './controllers/todos_cors_controller'
+require_relative './controllers/todos_csrf_controller'
 
 class SampleWebApplication
   def call(env)
@@ -45,6 +46,13 @@ class SampleWebApplication
 
     elsif request.path == '/todos/cors' && request.post?
       TodosCorsController.new.create(request)
+
+    # CSRF
+    elsif request.path == '/todos/csrf' && request.get?
+      TodosCsrfController.new.index(request)
+
+    elsif request.path == '/todos/csrf' && request.post?
+      TodosCsrfController.new.create(request)
 
     # その他の場合は 404 ページ
     else
