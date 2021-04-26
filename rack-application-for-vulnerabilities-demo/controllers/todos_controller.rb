@@ -1,3 +1,5 @@
+require "cgi/escape"
+
 class TodosController
   def index(request)
     # DB から TODO 一覧を取得
@@ -19,8 +21,8 @@ class TodosController
     table_body_html = result.map do |record|
       <<~EOT
         <tr>
-          <td>#{record['id']}</td>
-          <td>#{record['title']}</td>
+          <td>#{CGI.escapeHTML(record['id'])}</td>
+          <td>#{CGI.escapeHTML(record['title'])}</td>
         </tr>
       EOT
     end.join
