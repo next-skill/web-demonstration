@@ -76,8 +76,18 @@ class SampleWebApplication
           </head>
           <body>
             <h1>CSRF</h1>
+            <hr>
+            <h2>CSRF 未対策の場合</h2>
             <p>http://localhost:9292/todos/csrf への POST</p>
             <form action="http://localhost:9292/todos/csrf" method="post">
+            <label>title: </label>
+            <input type="text" name="title" />
+            <button type="submit">register</button>
+            </form>
+            <hr>
+            <h2>CSRF 対策済みの場合</h2>
+            <p>http://localhost:9292/todos への POST</p>
+            <form action="http://localhost:9292/todos" method="post">
             <label>title: </label>
             <input type="text" name="title" />
             <button type="submit">register</button>
