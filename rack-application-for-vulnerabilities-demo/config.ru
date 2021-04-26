@@ -7,6 +7,7 @@ require 'securerandom'
 require_relative './controllers/todos_controller'
 require_relative './controllers/todos_xss_controller'
 require_relative './controllers/todos_sql_injection_controller'
+require_relative './controllers/todos_cors_controller'
 
 class SampleWebApplication
   def call(env)
@@ -37,6 +38,13 @@ class SampleWebApplication
 
     elsif request.path == '/todos/sql-injection' && request.post?
       TodosSqlInjectionController.new.create(request)
+
+    # CORS
+    elsif request.path == '/todos/cors' && request.get?
+      TodosCorsController.new.index(request)
+
+    elsif request.path == '/todos/cors' && request.post?
+      TodosCorsController.new.create(request)
 
     # その他の場合は 404 ページ
     else

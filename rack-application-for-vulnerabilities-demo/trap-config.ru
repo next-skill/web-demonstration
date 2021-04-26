@@ -37,29 +37,25 @@ class SampleWebApplication
             <h1>同一オリジンポリシー</h1>
             <hr>
             <h2>同一オリジンの場合</h2>
-            <iframe id="same-origin-iframe" src="http://localhost:9393/todos"></iframe>
             <div id="same-origin-output"></div>
             <hr>
             <h2>異なるオリジンの場合</h2>
-            <iframe id="cross-origin-iframe" src="http://localhost:9292/todos"></iframe>
             <div id="cross-origin-output"></div>
             <hr>
             <h2>異なるオリジンで CORS を設定した場合</h2>
-            <iframe id="cors-iframe" src="http://localhost:9292/todos/cors"></iframe>
             <div id="cors-output"></div>
           </body>
           <script>
-            function robIframeData(iframeId, outputId) {
-              const iframe = document.getElementById(iframeId)
-              iframe.onload = () => {
-                const innerHTML = iframe.contentWindow.document.body.innerHTML
-                const outputTag = document.getElementById(outputId)
-                outputTag.innerHTML = innerHTML
-              }
+            async function robData(requestUrl, outputId) {
+              response = await fetch(requestUrl)
+              responseText = await response.text()
+
+              const outputTag = document.getElementById(outputId)
+              outputTag.innerHTML = responseText
             }
-            robIframeData('same-origin-iframe', 'same-origin-output')
-            robIframeData('cross-origin-iframe', 'cross-origin-output')
-            robIframeData('cors-iframe', 'cors-output')
+            robData('http://localhost:9393/todos', 'same-origin-output')
+            robData('http://localhost:9292/todos', 'cross-origin-output')
+            robData('http://localhost:9292/todos/cors', 'cors-output')
           </script>
         </html>
       EOT
