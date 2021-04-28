@@ -85,9 +85,8 @@ class TodosController
     # CSRF トークンのチェック
     request_csrf_token = request.params['token']
     session_id = request.cookies['session_id']
-    session_csrf_token = SESSIONS[session_id]['csrf_token']
-
-    if request_csrf_token != session_csrf_token
+    session = SESSIONS[session_id]
+    if session.nil? || request_csrf_token != session['csrf_token']
       return Rack::Response.new("Invalid CSRF Token", 400, {})
     end
 
