@@ -41,6 +41,19 @@ class Handler
           </body>
         </html>
       EOT
+    when '/api/count' then
+      @count += 1
+
+      response_header = <<~EOT
+        HTTP/1.1 200 OK
+        Content-Type: application/json
+      EOT
+
+      response_body = <<~EOT
+        {
+          "count": #{@count}
+        }
+      EOT
     else
       response_header = <<~EOT
         HTTP/1.1 404 Not Found
