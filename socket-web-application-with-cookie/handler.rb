@@ -32,9 +32,9 @@ class Handler
         .split(/\R/)
         .filter { |row| row.start_with?('Cookie: ')}
         .first
-        .split(/ /)
-        .filter { |c| c.start_with?("#{cookie_name}") }
-        .first
+        &.split(/ /)
+        &.filter { |c| c.start_with?("#{cookie_name}") }
+        &.first
         &.gsub(/^#{cookie_name}=([^; ]+);?$/, '\1')
         &.chomp
       puts '=== cookie_session_id ==='
